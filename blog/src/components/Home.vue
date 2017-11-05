@@ -3,7 +3,7 @@
     <div v-for="post in posts">
       <div class="card">
         <div class="card-content">
-          <div class="media pull-right">
+          <div class="media pull-right" v-if="user!=null">
             <div class="media-left">
               <figure class="image is-48x48">
                 <img class="img-circle" :src="post.user.photoUrl" alt="Image">
@@ -53,7 +53,7 @@
       }
     },
     mounted() {
-      let t = this;
+      let t = this
       firebase.database().ref('posts').on('child_added', function (data) {
         let post = data.val()
         firebase.database().ref('/users/' + post.uid).once('value').then(function (snapshot) {
